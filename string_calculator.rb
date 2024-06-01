@@ -5,7 +5,7 @@ class StringCalculator
       return 0 if numbers.empty?
   
       delimiters, numbers_part = extract_delimiters(numbers)
-      return 0 if numbers_part.nil? || numbers_part.empty? # Ensure numbers are present
+      raise "Numbers are required" if numbers_part.nil? || numbers_part.empty? # Ensure numbers are present
   
       numbers_array = numbers_part.split(Regexp.union(delimiters))
   
@@ -13,8 +13,8 @@ class StringCalculator
   
       numbers_array.reduce(0) do |sum, current|
         num = current.to_i
-        sum += num if num <= MAX_SAFE_INTEGER
-        sum
+        next sum if num > MAX_SAFE_INTEGER
+        sum + num
       end
     end
   
