@@ -4,8 +4,8 @@ class StringCalculator
     def add(numbers)
       return 0 if numbers.empty?
   
-      delimiters = get_delimiters(numbers)
-      numbers_array = numbers.split(Regexp.union(delimiters))
+      delimiters, numbers_part = extract_delimiters(numbers)
+      numbers_array = numbers_part.split(Regexp.union(delimiters))
   
       check_for_negatives(numbers_array)
   
@@ -18,9 +18,14 @@ class StringCalculator
   
     private
   
-    def get_delimiters(numbers)
-      custom_delimiter_match = numbers.match(/\/\/(.*)\n/)
-      custom_delimiter_match ? custom_delimiter_match[1].split('') : [',', '\n']
+    def extract_delimiters(numbers)
+      if numbers.start_with?('//')
+        delimiter_part, numbers_part = numbers.split("\n", 2)
+        custom_delimiters = delimiter_part[2..].split('')
+        return custom_delimiters, numbers_part
+      else
+        return [',', '\n'], numbers
+      end
     end
   
     def check_for_negatives(numbers)
