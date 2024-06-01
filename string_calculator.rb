@@ -23,6 +23,9 @@ class StringCalculator
       custom_delimiter_match ? custom_delimiter_match[1].split('') : [',', '\n']
     end
   
-    
+    def check_for_negatives(numbers)
+      negative_numbers = numbers.select { |num| num.to_i < 0 }
+      raise "Negative numbers not allowed: #{negative_numbers.join(', ')}" unless negative_numbers.empty?
+    end
   end
   
