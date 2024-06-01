@@ -25,4 +25,9 @@ RSpec.describe StringCalculator do
     calculator = StringCalculator.new
     expect(calculator.add('//;\n1;2')).to eq(3)
   end
+
+  it 'handles numbers larger than max safe integer' do
+    calculator = StringCalculator.new
+    expect(calculator.add('9007199254740991')).to eq(9007199254740991)
+  end
 end
