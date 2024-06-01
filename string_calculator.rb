@@ -5,14 +5,16 @@ class StringCalculator
       return 0 if numbers.empty?
   
       delimiters, numbers_part = extract_delimiters(numbers)
+      return 0 if numbers_part.nil? || numbers_part.empty? # Ensure numbers are present
+  
       numbers_array = numbers_part.split(Regexp.union(delimiters))
   
       check_for_negatives(numbers_array)
   
       numbers_array.reduce(0) do |sum, current|
         num = current.to_i
-        next sum if num > MAX_SAFE_INTEGER
-        sum + num
+        sum += num if num <= MAX_SAFE_INTEGER
+        sum
       end
     end
   
