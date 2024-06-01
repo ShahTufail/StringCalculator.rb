@@ -42,4 +42,8 @@ RSpec.describe StringCalculator do
     expect(calculator.add('1,9007199254740991,2')).to eq(9007199254740993)
   end
 
+  it 'throws an exception for empty string after custom delimiters definition' do
+    calculator = StringCalculator.new
+    expect { calculator.add('//;') }.to raise_error('Numbers are required')
+  end
 end
