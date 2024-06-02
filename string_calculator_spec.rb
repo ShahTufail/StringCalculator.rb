@@ -39,7 +39,7 @@ RSpec.describe StringCalculator do
 
   it 'ignores numbers after exceeding max safe integer' do
     calculator = StringCalculator.new
-    expect(calculator.add('1,9007199254740991,2')).to eq(3)
+    expect(calculator.add('1,9007199254740994,2')).to eq(3)
   end
 
   it 'throws an exception for empty string after custom delimiters definition' do
